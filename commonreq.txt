@@ -1,5 +1,7 @@
 fastapi
 uvicorn
 pydantic[email]
+
+#for mongo db
 motor
 mypy
