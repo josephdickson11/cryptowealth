@@ -1,0 +1,6 @@
+#for database
+sqlalchemy         
+psycopg2
+
+#for loading environment variables
+python-dotenv
