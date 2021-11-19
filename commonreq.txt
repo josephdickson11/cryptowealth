@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydantic[email]
+
+#for loading environment variables
+python-dotenv
