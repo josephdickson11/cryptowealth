@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DATE, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
 from sqlalchemy.orm import relationship
 
 from db.base_class import Base
@@ -10,4 +10,5 @@ class Customer(Base):
     email = Column(String, nullable=False, unique=True, index=True)
     hashed_password = Column(String, nullable=False)
     is_KYC = Column(Boolean, default=False)
-    accounts = relationship("Accounts", back_populates="owner")
+    total_account = Column(Integer, nullable=True)
+    accounts = relationship("Normal_accounts", back_populates="customer")
