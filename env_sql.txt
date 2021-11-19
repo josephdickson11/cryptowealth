@@ -1,4 +1,0 @@
-#for database
-sqlalchemy         
-psycopg2
-
