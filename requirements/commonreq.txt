@@ -3,3 +3,6 @@ uvicorn
 
 #for email validation
 pydantic[email]
+
+#for password security
+passlib[bcrypt]
