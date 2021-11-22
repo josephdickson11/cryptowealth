@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from sqlalchemy.ext.declarative import api
 
 from apis.version1 import route_general_pages
 from apis.version1 import route_customers
