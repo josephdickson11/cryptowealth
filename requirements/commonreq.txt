@@ -6,3 +6,7 @@ pydantic[email]
 
 #for password security
 passlib[bcrypt]
+
+#for testing
+pytest
+requests
