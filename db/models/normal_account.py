@@ -7,10 +7,6 @@ from db.base_class import Base
 
 class Normal_accounts(Base):
     id = Column(Integer, primary_key=True, index=True)
-    asset_1 = Column(String, nullable=True)
-    asset_2 = Column(String, nullable=True)
-    asset_3 = Column(String, nullable=True)
-    asset_4 = Column(String, nullable=True)
-    asset_5 = Column(String, nullable=True)
+    wallet_id = Column(Integer, primary_key=True)
     customer_id = Column(Integer, ForeignKey("customer.id"))
     customer = relationship("Customer", back_populates="accounts")
