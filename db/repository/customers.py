@@ -9,7 +9,8 @@ def create_new_customer(customer: CustomerCreate, db:Session):
         username = customer.username,
         email = customer.email,
         hashed_password = Hasher.get_password_hash(customer.password),
-        is_KYC = False
+        is_KYC = False,
+        referred_by = customer.referred_by
     )
 
     db.add(customer)

@@ -6,6 +6,7 @@ class CustomerCreate(BaseModel):
     username: str
     email : EmailStr
     password : str
+    referred_by: str
 
 
 class ShowCustomer(BaseModel):
