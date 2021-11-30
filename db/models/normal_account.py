@@ -8,9 +8,8 @@ from db.base_class import Base
 
 class Normal_accounts(Base):
     id = Column(Integer, primary_key=True, index=True)
-    wallet_address = Column(Integer, nullable=False)
-    wallet_id = Column(Integer, primary_key=True)
+    wallet_address = Column(String, nullable=False)
     date_created = Column(Date)
-    wallet_balance = Column(Integer)
+    wallet_balance = Column(Integer, nullable=True)
     customer_id = Column(Integer, ForeignKey("customer.id"))
     customer = relationship("Customer", back_populates="accounts")

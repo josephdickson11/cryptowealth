@@ -4,7 +4,7 @@ from datetime import date, datetime
 
 #shared properties
 class AccountBase(BaseModel):
-    wallet_address : Optional[str] = None
+    wallet_address : Optional[str]
     date_created : Optional[date] = datetime.now().date()
 
 
