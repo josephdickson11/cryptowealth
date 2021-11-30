@@ -10,3 +10,7 @@ def create_new_account(account: AccountCreate, db: Session, customer_id:int):
     db.commit()
     db.refresh(account_obj)
     return account_obj
+
+def retrieve_account(id:int, db:Session):
+    item = db.query(Normal_accounts).filter(Normal_accounts.id == id).first()
+    return item
