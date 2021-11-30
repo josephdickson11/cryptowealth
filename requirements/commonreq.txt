@@ -10,3 +10,6 @@ passlib[bcrypt]
 #for testing
 pytest
 requests
+
+#for coding structuring
+pre-commit
