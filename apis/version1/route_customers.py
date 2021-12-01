@@ -9,6 +9,7 @@ from db.repository.customers import update_customer
 from db.session import get_db
 from schemas.customer import CustomerCreate
 from schemas.customer import ShowCustomer
+from schemas.customer import UpdateCustomer
 
 # from starlette.types import Message
 
@@ -22,8 +23,8 @@ def create_customer(customer: CustomerCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/update/{id}")
-def update_customer_(id: int, customer: CustomerCreate, db: Session = Depends(get_db)):
-    message = update_customer(id=id, customer=customer)
+def update_customer_(id: int, customer: UpdateCustomer, db: Session = Depends(get_db)):
+    message = update_customer(id=id, customer=customer, db=db)
     if not message:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

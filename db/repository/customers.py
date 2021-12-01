@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from core.hashing import Hasher
 from db.models.customer import Customer
 from schemas.customer import CustomerCreate
+from schemas.customer import UpdateCustomer
 
 
 def create_new_customer(customer: CustomerCreate, db: Session):
@@ -21,7 +22,7 @@ def create_new_customer(customer: CustomerCreate, db: Session):
     return customer
 
 
-def update_customer(id: int, customer: CustomerCreate, db: Session):
+def update_customer(id: int, customer: UpdateCustomer, db: Session):
     existing_customer = db.query(Customer).filter(Customer.id == id)
     if not existing_customer.first():
         return 0
