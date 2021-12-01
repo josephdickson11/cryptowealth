@@ -13,3 +13,6 @@ requests
 
 #for coding structuring
 pre-commit
+
+#for authentication token
+python-jose

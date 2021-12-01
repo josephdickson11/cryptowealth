@@ -1,16 +1,17 @@
 from sqlalchemy.orm import Session
 
-from schemas.customer import CustomerCreate
-from db.models.customer import Customer
 from core.hashing import Hasher
+from db.models.customer import Customer
+from schemas.customer import CustomerCreate
 
-def create_new_customer(customer: CustomerCreate, db:Session):
+
+def create_new_customer(customer: CustomerCreate, db: Session):
     customer = Customer(
-        username = customer.username,
-        email = customer.email,
-        hashed_password = Hasher.get_password_hash(customer.password),
-        is_KYC = False,
-        referred_by = customer.referred_by
+        username=customer.username,
+        email=customer.email,
+        hashed_password=Hasher.get_password_hash(customer.password),
+        is_KYC=False,
+        referred_by=customer.referred_by,
     )
 
     db.add(customer)
@@ -18,3 +19,13 @@ def create_new_customer(customer: CustomerCreate, db:Session):
     db.refresh(customer)
 
     return customer
+
+
+def update_customer(id: int, customer: CustomerCreate, db: Session):
+    existing_customer = db.query(Customer).filter(Customer.id == id)
+    if not existing_customer.first():
+        return 0
+    customer.__dict__.update()
+    existing_customer.update(customer.__dict__)
+    db.commit()
+    return 1
