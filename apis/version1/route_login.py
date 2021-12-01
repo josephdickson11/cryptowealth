@@ -3,8 +3,8 @@ from datetime import timedelta
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
-from fastapi import OAuth2PAsswordRequestForm
 from fastapi import status
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import false
 from typing_extensions import runtime
@@ -20,8 +20,8 @@ from schemas.tokens import Token
 router = APIRouter()
 
 
-def authenticate_customer(email: str, password: str, db: Session):
-    customer = get_customer(email=email, db=db)
+def authenticate_customer(username: str, password: str, db: Session):
+    customer = get_customer(username=username, db=db)
     print(customer)
     if not customer:
         return False
@@ -32,9 +32,9 @@ def authenticate_customer(email: str, password: str, db: Session):
 
 @router.post("/token", response_model=Token)
 def login_for_access_token(
-    form_data: OAuth2PAsswordRequestForm = Depends(), db: Session = Depends(get_db)
+    form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
-    customer = authenticate_customer(form_data.email, form_data.password, db)
+    customer = authenticate_customer(form_data.username, form_data.password, db)
     if not customer:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password"

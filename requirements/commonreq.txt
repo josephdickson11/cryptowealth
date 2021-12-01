@@ -16,3 +16,6 @@ pre-commit
 
 #for authentication token
 python-jose
+
+#for accessing form data       #new
+python-multipart
