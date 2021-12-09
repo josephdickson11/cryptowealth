@@ -30,7 +30,7 @@ def authenticate_customer(username: str, password: str, db: Session):
     return customer
 
 
-@router.post("/", response_model=Token)
+@router.post("", response_model=Token)
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
