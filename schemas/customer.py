@@ -5,14 +5,11 @@ from pydantic import EmailStr
 
 # attributes required during customer creation
 class CustomerCreate(BaseModel):
-    username: str
     email: EmailStr
     password: str
-    referred_by: str
 
 
 class ShowCustomer(BaseModel):
-    username: str
     email: EmailStr
 
     class Config:
