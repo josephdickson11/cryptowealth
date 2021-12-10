@@ -3,7 +3,7 @@ from passlib.context import CryptContext
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-class Hasher():
+class Hasher:
     @staticmethod
     def verify_password(plain_password, hashed_password):
         return pwd_context.verify(plain_password, hashed_password)
@@ -11,3 +11,11 @@ class Hasher():
     @staticmethod
     def get_password_hash(password):
         return pwd_context.hash(password)
+
+    @staticmethod
+    def get_pincode_hash(pincode):
+        return pwd_context.hash(pincode)
+
+    @staticmethod
+    def verify_pincode(plain_pincode, hashed_pincode):
+        return pwd_context.verify(plain_pincode, hashed_pincode)

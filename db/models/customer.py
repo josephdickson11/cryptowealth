@@ -16,6 +16,7 @@ class Customer(Base):
     lastname = Column(String, nullable=True)
     email = Column(String, nullable=False, unique=True, index=True)
     hashed_password = Column(String, nullable=False)
+    hashed_pincode = Column(String, nullable=False)
     is_KYC = Column(Boolean, default=False)
     total_account = Column(Integer, nullable=True)
     referral_id = Column(String, nullable=True, unique=True)

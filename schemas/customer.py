@@ -7,6 +7,7 @@ from pydantic import EmailStr
 class CustomerCreate(BaseModel):
     email: EmailStr
     password: str
+    pincode: str
 
 
 class ShowCustomer(BaseModel):

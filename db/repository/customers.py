@@ -10,13 +10,13 @@ def create_new_customer(customer: CustomerCreate, db: Session):
     customer = Customer(
         email=customer.email,
         hashed_password=Hasher.get_password_hash(customer.password),
+        hashed_pincode=Hasher.get_pincode_hash(customer.pincode),
         is_KYC=False,
     )
 
     db.add(customer)
     db.commit()
     db.refresh(customer)
-
     return customer
 
 
