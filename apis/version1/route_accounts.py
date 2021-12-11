@@ -6,6 +6,7 @@ from fastapi import HTTPException
 from fastapi import status
 from sqlalchemy.orm import Session
 
+from db.models.customer import Customer
 from db.repository.normal_account import create_new_account
 from db.repository.normal_account import list_accounts
 from db.repository.normal_account import retrieve_account
@@ -20,8 +21,9 @@ router = APIRouter()
 
 @router.post("/create-account/", response_model=ShowAccount)
 def create_account(account: AccountCreate, db: Session = Depends(get_db)):
-    current_customer = 1
-    account = create_new_account(account=account, db=db, customer_id=current_customer)
+    current_customer = db.query(Customer.id).first()
+    formatted_id = current_customer[0]
+    account = create_new_account(account=account, db=db, customer_id=formatted_id)
     return account
 
 
