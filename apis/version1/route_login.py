@@ -13,9 +13,12 @@ from core.config import settings
 from core.hashing import Hasher
 from core.security import create_access_token
 from db.models.customer import Customer
+from db.repository.login import get_current_user
 from db.repository.login import get_customer
 from db.session import get_db
-from schemas.tokens import Token
+from schemas.customer import ShowCustomer
+from schemas.tokens import TokenData
+
 
 router = APIRouter()
 
@@ -30,7 +33,7 @@ def authenticate_customer(username: str, password: str, db: Session):
     return customer
 
 
-@router.post("", response_model=Token)
+@router.post("/token", response_model=TokenData)
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
@@ -45,3 +48,8 @@ def login_for_access_token(
     )
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.post("/me", response_model=ShowCustomer)
+def read_logged_in_user(current_user: ShowCustomer = Depends(get_current_user)):
+    return current_user
