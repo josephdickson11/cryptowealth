@@ -4,6 +4,7 @@ from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
 from fastapi import status
+from fastapi.security import OAuth2PasswordBearer
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import false
@@ -11,20 +12,22 @@ from typing_extensions import runtime
 
 from core.config import settings
 from core.hashing import Hasher
+from core.helper import get_customer_by_mail
 from core.security import create_access_token
+from core.security import get_authentic_customer
 from db.models.customer import Customer
 from db.repository.login import get_current_user
-from db.repository.login import get_customer
 from db.session import get_db
 from schemas.customer import ShowCustomer
 from schemas.tokens import TokenData
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token", auto_error=False)
 
 router = APIRouter()
 
 
 def authenticate_customer(username: str, password: str, db: Session):
-    customer = get_customer(username=username, db=db)
+    customer = get_customer_by_mail(username=username, db=db)
     print(customer)
     if not customer:
         return False
@@ -50,6 +53,6 @@ def login_for_access_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.post("/me", response_model=ShowCustomer)
-def read_logged_in_user(current_user: ShowCustomer = Depends(get_current_user)):
+@router.post("/me")
+def read_logged_in_user(current_user=Depends(get_current_user)):
     return current_user

@@ -12,9 +12,12 @@ from starlette.status import HTTP_401_UNAUTHORIZED
 
 from core.config import settings
 from core.helper import get_customer
+from core.helper import get_customer_by_mail
 from db.models.customer import Customer
 from db.session import get_db
 from schemas.customer import TokenData
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/token", auto_error=False)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
@@ -32,7 +35,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 
-def decode_access_token(db, token):
+def get_authentic_customer(db: Session, token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -42,14 +45,14 @@ def decode_access_token(db, token):
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM]
         )
-        email: str = payload.get("sub")
+        email = payload.get("sub")
         if email is None:
             raise credentials_exception
         token_data = TokenData(email=email)
     except JWTError:
         raise credentials_exception
 
-    user = get_customer(Depends(get_db), email=token_data.email)
+    user = get_customer_by_mail(email, db)
     if user is None:
         raise credentials_exception
     return user

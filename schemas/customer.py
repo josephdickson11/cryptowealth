@@ -3,6 +3,8 @@ from typing import Optional
 from pydantic import BaseModel
 from pydantic import EmailStr
 
+from db.base_class import Base
+
 # attributes required during customer creation
 class CustomerCreate(BaseModel):
     email: EmailStr
@@ -24,4 +26,15 @@ class UpdateCustomer(BaseModel):
 
 
 class TokenData(BaseModel):
+    email: Optional[str] = None
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class UserProfilr(BaseModel):
+    access_token: str
+    token_type: str
     email: EmailStr
