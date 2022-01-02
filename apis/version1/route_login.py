@@ -61,6 +61,6 @@ def login_for_access_token(
     }
 
 
-@router.post("/get_user")
+@router.post("/userdata")
 def read_logged_in_user(current_user=Depends(get_current_user)):
     return current_user
