@@ -36,7 +36,7 @@ def authenticate_customer(username: str, password: str, db: Session):
     return customer
 
 
-@router.post("/token", response_model=TokenData)
+@router.post("/authenticate", response_model=TokenData)
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
@@ -50,9 +50,17 @@ def login_for_access_token(
         data={"sub": customer.email}, expires_delta=access_token_expires
     )
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    def read_logged_in_user(current_user=Depends(get_current_user)):
+        return current_user
+
+    current_user = read_logged_in_user()
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "userdict": current_user,
+    }
 
 
-@router.post("/me")
+@router.post("/get_user")
 def read_logged_in_user(current_user=Depends(get_current_user)):
     return current_user

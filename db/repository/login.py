@@ -8,7 +8,7 @@ from core.security import get_authentic_customer
 from db.models.customer import Customer
 from db.session import get_db
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/token/")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/authenticate/")
 
 
 def get_current_user(
