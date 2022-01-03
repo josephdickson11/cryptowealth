@@ -36,7 +36,7 @@ def authenticate_customer(username: str, password: str, db: Session):
     return customer
 
 
-@router.post("/authenticate", response_model=TokenData)
+@router.post("/authenticate")
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
@@ -54,11 +54,7 @@ def login_for_access_token(
         return current_user
 
     current_user = read_logged_in_user()
-    return {
-        "access_token": access_token,
-        "token_type": "bearer",
-        "userdict": current_user,
-    }
+    return {"access_token": access_token, "token_type": "bearer", "userdict": customer}
 
 
 @router.post("/userdata")
