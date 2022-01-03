@@ -22,7 +22,6 @@ class ShowCustomer(BaseModel):
 class UpdateCustomer(BaseModel):
     firstname: str
     lastname: str
-    username: str
 
 
 class TokenData(BaseModel):

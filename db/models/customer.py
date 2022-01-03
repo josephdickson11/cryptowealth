@@ -18,6 +18,7 @@ class Customer(Base):
     hashed_password = Column(String, nullable=False)
     hashed_pincode = Column(String, nullable=False)
     is_KYC = Column(Boolean, default=False)
+    is_verified = Column(Boolean, default=False)
     total_account = Column(Integer, nullable=True)
     referral_id = Column(String, nullable=True, unique=True)
     referred_by = Column(String, nullable=True)

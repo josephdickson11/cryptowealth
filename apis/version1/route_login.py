@@ -49,12 +49,23 @@ def login_for_access_token(
     access_token = create_access_token(
         data={"sub": customer.email}, expires_delta=access_token_expires
     )
+    customer_obj = {
+        "id": customer.id,
+        "firstname": customer.firstname,
+        "email": customer.email,
+        "total_account": customer.total_account,
+        "referral_id": customer.referral_id,
+        "lastname": customer.lastname,
+        "is_KYC": customer.is_KYC,
+        "referred_by": customer.referred_by,
+        "is_verified": customer.is_verified,
+    }
 
-    def read_logged_in_user(current_user=Depends(get_current_user)):
-        return current_user
-
-    current_user = read_logged_in_user()
-    return {"access_token": access_token, "token_type": "bearer", "userdict": customer}
+    return {
+        "access_token": access_token,
+        "token_type": "bearer",
+        "userdict": customer_obj,
+    }
 
 
 @router.post("/userdata")
