@@ -58,7 +58,7 @@ def login_for_access_token(
         "lastname": customer.lastname,
         "is_KYC": customer.is_KYC,
         "referred_by": customer.referred_by,
-        "is_verified": customer.is_verified,
+        "isEmailVerified": customer.is_verified,
     }
 
     return {
