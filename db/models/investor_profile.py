@@ -14,4 +14,5 @@ class Investor_profile(Base):
     id = Column(Integer, primary_key=True, index=True)
     risk_level = Column(String, nullable=True)
     invest_purpose = Column(String, nullable=True)
-    investor = relationship("Customer", back_populates="customer")
+    customer_id = Column(Integer, ForeignKey("customer.id"))
+    customer = relationship("Customer", back_populates="investor_profile")
