@@ -6,11 +6,10 @@ from schemas.investor_profile import ProfileCreate
 from schemas.investor_profile import UpdateProfile
 
 
-def create_new_customer(profile: ProfileCreate, db: Session):
+def create_new_profile(profile: ProfileCreate, db: Session):
     profile = Investor_profile(
         risk_level=profile.risk_level, purpose=profile.invest_purpose
     )
-
     db.add(profile)
     db.commit()
     db.refresh(profile)
