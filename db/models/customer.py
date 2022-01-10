@@ -23,3 +23,4 @@ class Customer(Base):
     referral_id = Column(String, nullable=True, unique=True)
     referred_by = Column(String, nullable=True)
     accounts = relationship("Normal_accounts", back_populates="customer")
+    investor_profile = relationship("Investor_profile", back_populates="investor")
