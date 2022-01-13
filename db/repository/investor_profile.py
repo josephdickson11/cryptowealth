@@ -6,14 +6,17 @@ from schemas.investor_profile import ProfileCreate
 from schemas.investor_profile import UpdateProfile
 
 
-def create_new_profile(profile: ProfileCreate, db: Session):
-    profile = Investor_profile(
-        risk_level=profile.risk_level, purpose=profile.invest_purpose
-    )
+def create_new_profile(profile: ProfileCreate, db: Session, customer_id: int):
+    profile = Investor_profile(**profile.dict(), customer_id=customer_id)
     db.add(profile)
     db.commit()
     db.refresh(profile)
     return profile
+
+
+def retrieve_account(id: int, db: Session):
+    item = db.query(Investor_profile).filter(Investor_profile.id == id).first()
+    return item
 
 
 def update_customer(id: int, customer: UpdateProfile, db: Session):
