@@ -27,3 +27,8 @@ def update_profile(id: int, customer: UpdateProfile, db: Session):
     existing_customer.update(customer.__dict__)
     db.commit()
     return 1
+
+
+def list_profiles(db: Session):
+    investment_profiles = db.query(Investor_profile).all()
+    return investment_profiles
