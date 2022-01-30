@@ -1,8 +1,11 @@
+import imp
+
 from fastapi import APIRouter
 
 from apis.version1 import route_accounts
 from apis.version1 import route_customers
 from apis.version1 import route_general_pages
+from apis.version1 import route_investment_profile
 from apis.version1 import route_login
 
 api_router = APIRouter()
@@ -16,3 +19,7 @@ api_router.include_router(
     route_accounts.router, prefix="/normal_accounts", tags=["accounts"]
 )
 api_router.include_router(route_login.router, prefix="/login", tags=["login"])
+
+api_router.include_router(
+    route_investment_profile.router, prefix="/investmets", tags=["investment"]
+)
