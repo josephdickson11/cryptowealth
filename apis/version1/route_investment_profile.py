@@ -14,6 +14,7 @@ from db.repository.investor_profile import update_profile
 from db.session import get_db
 from schemas.investor_profile import ProfileCreate
 from schemas.investor_profile import ShowProfile
+from schemas.investor_profile import UpdateProfile
 
 router = APIRouter()
 
@@ -41,3 +42,14 @@ def read_investment_profile(id: int, db: Session = Depends(get_db)):
 def read_investment_profiles(db: Session = Depends(get_db)):
     profiles = list_profiles(db=db)
     return profiles
+
+
+@router.post("/update/{id}")
+def update_profile(id: int, profile: UpdateProfile, db: Session = Depends(get_db)):
+    message = update_profile(id=id, profile=profile, db=db)
+    if not message:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"profile with id {id} not found",
+        )
+    return {"msg": "Successfully updated data."}
