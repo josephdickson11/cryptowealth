@@ -14,12 +14,12 @@ def create_new_profile(profile: ProfileCreate, db: Session, customer_id: int):
     return profile
 
 
-def retrieve_account(id: int, db: Session):
+def retrieve_profile(id: int, db: Session):
     item = db.query(Investor_profile).filter(Investor_profile.id == id).first()
     return item
 
 
-def update_customer(id: int, customer: UpdateProfile, db: Session):
+def update_profile(id: int, customer: UpdateProfile, db: Session):
     existing_customer = db.query(Investor_profile).filter(Investor_profile.id == id)
     if not existing_customer.first():
         return 0
