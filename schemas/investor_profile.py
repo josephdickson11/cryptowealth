@@ -12,7 +12,7 @@ class ProfileCreate(BaseModel):
 
 
 class ShowProfile(BaseModel):
-    email: EmailStr
+    risk_level: str
 
     class Config:
         orm_mode = True
