@@ -19,8 +19,8 @@ class ShowProfile(BaseModel):
 
 
 class UpdateProfile(BaseModel):
-    firstname: str
-    lastname: str
+    risk_level: str
+    invest_purpose: str
 
 
 class UserProfile(BaseModel):
