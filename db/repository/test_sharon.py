@@ -5,6 +5,7 @@ indebt = False
 
 
 import datetime
+import xdrlib
 
 x = datetime.datetime(2018, 9, 15)
 
@@ -12,10 +13,10 @@ x = datetime.datetime(2018, 9, 15)
 # print(datetime.date.today())
 
 yesterday = datetime.datetime(2022, 1, 13)
-print(yesterday)
+# print(yesterday)
 
 today = datetime.date.today()
-print(today)
+# print(today)
 
 
 def credit_account():
@@ -40,6 +41,3 @@ def credit_account():
         print("credit successful, your new account balance is", account_balance)
 
     return account_balance
-
-
-credit_account()
